@@ -60,9 +60,9 @@ RUN apk upgrade --update \
     # Install Composer
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     # Install N98-Magerun
-    && curl -O https://files.magerun.net/n98-magerun.phar \
-        && mv ./n98-magerun.phar /usr/local/bin/n98-magerun \
-        && chmod +x /usr/local/bin/n98-magerun
+    && curl -O https://files.magerun.net/n98-magerun2.phar \
+        && mv ./n98-magerun2.phar /usr/local/bin/n98-magerun2 \
+        && chmod +x /usr/local/bin/n98-magerun2
 
 COPY www.conf /usr/local/etc/php-fpm.d/
 COPY php.ini /usr/local/etc/php/conf.d
