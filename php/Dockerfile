@@ -59,6 +59,9 @@ RUN apk upgrade --update \
     && ls -A1 /tmp | xargs rm -rf \
     # Install Composer
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer global require hirak/prestissimo \
+    && cp -r /root/.composer /home/www-data/.composer \
+    && chown -R www-data /home/www-data \
     # Install N98-Magerun
     && curl -O https://files.magerun.net/n98-magerun2.phar \
         && mv ./n98-magerun2.phar /usr/local/bin/n98-magerun2 \
