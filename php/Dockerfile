@@ -74,7 +74,7 @@ COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh \
     && mkdir -p /var/run/php
 
-WORKDIR /app
+WORKDIR /app/current
 CMD ["php-fpm"]
 ENTRYPOINT ["/entrypoint.sh"]
 
