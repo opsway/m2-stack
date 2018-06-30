@@ -24,6 +24,7 @@ RUN apk upgrade --update \
         icu-libs \
         libxslt-dev \
         libxslt \
+        openssh \
         # Prepare PHP extensions and configs
     && docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install \ 
@@ -70,6 +71,9 @@ RUN apk upgrade --update \
 COPY www.conf /usr/local/etc/php-fpm.d/
 COPY php.ini /usr/local/etc/php/conf.d
 COPY docker-entrypoint.sh /entrypoint.sh
+
+RUN  /usr/bin/ssh-keygen -A
+COPY sshd_config /etc/ssh/
 
 RUN chmod a+x /entrypoint.sh \
     && mkdir -p /var/run/php
