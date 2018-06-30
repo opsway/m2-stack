@@ -15,4 +15,19 @@ then
     docker-php-ext-enable xdebug.so
 fi
 
+if [ ! -z "${SSH_SERVER}" ];
+then
+    deluser www-data
+    delgroup www-data
+    addgroup -g 82 www-data
+    adduser -u 82 -D -s /bin/bash -G www-data www-data
+    www_data_passwd=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
+    echo -e "${www_data_passwd}\n${www_data_passwd}\n" | passwd www-data
+
+    apk add --update sudo
+    echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/www-data
+
+    /usr/sbin/sshd || true
+fi
+
 exec "$@"
