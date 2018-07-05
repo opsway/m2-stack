@@ -4,7 +4,7 @@ RUN apk update && \
     apk upgrade && \
     apk add varnish && \
     mkdir -p /var/lib/varnish/
-# ADD default.vcl /etc/varnish/
+ADD default.vcl /etc/varnish/
 # ADD secret /etc/varnish/
 
 ADD start.sh /start.sh
