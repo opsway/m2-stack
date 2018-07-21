@@ -13,6 +13,11 @@ fi
 if [ -n "${XDEBUG}" ];
 then
     docker-php-ext-enable xdebug.so
+    echo "xdebug.remote_port = 9001" >> /usr/local/etc/php/conf.d/php.ini
+    echo "xdebug.remote_host = 127.0.0.1" >> /usr/local/etc/php/conf.d/php.ini
+    echo "xdebug.extended_info=1" >> /usr/local/etc/php/conf.d/php.ini
+    echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/php.ini
+    echo "xdebug.remote_autostart = 1" >> /usr/local/etc/php/conf.d/php.ini
 fi
 
 if [ ! -z "${SSH_SERVER}" ];

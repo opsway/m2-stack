@@ -25,6 +25,8 @@ RUN apk upgrade --update \
         libxslt-dev \
         libxslt \
         openssh \
+        g++ \
+        make \
         # Prepare PHP extensions and configs
     && docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install \ 
@@ -42,6 +44,7 @@ RUN apk upgrade --update \
         bcmath \
     && pecl install \
         redis-3.1.6 \
+        xdebug \
     && docker-php-ext-enable redis \
     && docker-php-source delete \
     && rm -Rf /usr/local/etc/php-fpm.d/zz-docker.conf \
@@ -55,6 +58,8 @@ RUN apk upgrade --update \
 #        libjpeg-turbo-dev \
         libpng-dev \
         zlib-dev \
+        make \
+        g++ \
     && apk del .build-deps \
     && rm -rf /var/cache/apk/* \
     && ls -A1 /tmp | xargs rm -rf \
