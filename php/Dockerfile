@@ -83,6 +83,8 @@ COPY sshd_config /etc/ssh/
 RUN chmod a+x /entrypoint.sh \
     && mkdir -p /var/run/php
 
+COPY crontab-www-data /var/spool/cron/crontabs/www-data
+
 WORKDIR /app/current
 CMD ["php-fpm"]
 ENTRYPOINT ["/entrypoint.sh"]
