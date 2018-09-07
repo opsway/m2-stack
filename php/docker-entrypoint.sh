@@ -46,6 +46,3 @@ then
 fi
 
 exec "$@"
-
-
-
