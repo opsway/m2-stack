@@ -13,11 +13,10 @@ fi
 if [ -n "${XDEBUG}" ];
 then
     docker-php-ext-enable xdebug.so
-    echo "xdebug.remote_port = 9001" > /usr/local/etc/php/conf.d/php.ini
-    echo "xdebug.remote_host = 127.0.0.1" >> /usr/local/etc/php/conf.d/php.ini
-    echo "xdebug.extended_info=1" >> /usr/local/etc/php/conf.d/php.ini
-    echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/php.ini
-#    echo "xdebug.remote_autostart = 1" >> /usr/local/etc/php/conf.d/php.ini
+    echo "xdebug.remote_port = 9001" > /usr/local/etc/php/conf.d/xdebug.ini
+    echo "xdebug.remote_host = 127.0.0.1" >> /usr/local/etc/php/conf.d/xdebug.ini
+    echo "xdebug.extended_info=1" >> /usr/local/etc/php/conf.d/xdebug.ini
+    echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/xdebug.ini
 fi
 
 if [ ! -z "${SSH_SERVER}" ];
@@ -38,6 +37,7 @@ fi
 if [ ! -z "${DEV_ENV}" ];
 then
     echo "opcache.enable = off" > /usr/local/etc/php/conf.d/dev-env.ini
+    echo "memory_limit"
 fi
 
 if [ ! -z "${COMPOSER_USERNAME}" ];
