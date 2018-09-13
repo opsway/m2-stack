@@ -40,6 +40,12 @@ then
     echo "memory_limit"
 fi
 
+if [ ! -z "${IONCUBE}" ];
+then
+    echo "zend_extension = /usr/local/php/ext/ioncube/ioncube_loader.so" > /usr/local/etc/php/conf.d/00-ioncube.ini
+    echo "ioncube.loader.key.myprop = ${IONCUBE_KEY}" >> /usr/local/etc/php/conf.d/00-ioncube.ini
+fi   
+
 if [ ! -z "${COMPOSER_USERNAME}" ];
 then
     echo '{ "http-basic": { "repo.magento.com": { "username": "'$COMPOSER_USERNAME'", "password": "'$COMPOSER_PASSWORD'" } } }' > /home/www-data/.composer/auth.json
