@@ -1,0 +1,28 @@
+version: '2'
+services:
+  app:
+    image: quay.io/opsway/m2-php:master
+    environment:
+      XDEBUG: bla-bla
+    volumes:
+    - ./magento:/app/current
+    - ./nginx-log:/var/log/nginx/
+  web-worker:
+    image: quay.io/opsway/m2-nginx
+    volumes_from:
+      - app
+    ports:
+      - 80:80  
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: magento-local-db
+      MYSQL_PASSWORD: MYSQL_PASSWD
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWD
+      MYSQL_USER: magento-local-db
+    volumes:
+    - ./mysql-data:/var/lib/mysql
+  memcache:
+    image: memcached
+  redis:
+    image: redis
