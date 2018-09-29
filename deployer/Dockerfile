@@ -16,3 +16,4 @@ WORKDIR /project
 
 ENTRYPOINT ["deployer"]
 CMD ["--version"]
+
