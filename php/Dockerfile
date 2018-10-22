@@ -1,6 +1,11 @@
 FROM php:7.1-fpm-alpine
 LABEL maintainer="OpsWay Team"
 
+# env for php.ini
+ENV XDEBUG_REMOTE_PORT=9001
+ENV XDEBUG_REMOTE_HOST=127.0.0.1
+ENV XDEBUG_REMOTE_AUTOSTART="off"
+
 # Install libs
 RUN apk upgrade --update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \

@@ -4,11 +4,13 @@ services:
     image: quay.io/opsway/m2-php:master
     environment:
       XDEBUG: bla-bla
+      XDEBUG_REMOTE_HOST: 192.168.0.103
+      XDEBUG_REMOTE_AUTOSTART: "on"
     volumes:
     - ./magento:/app/current
     - ./nginx-log:/var/log/nginx/
   web-worker:
-    image: quay.io/opsway/m2-nginx
+    image: registry.opsway-dev.com:5000/dev/emrada-web-worker
     volumes_from:
       - app
     ports:

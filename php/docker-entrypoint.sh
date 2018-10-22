@@ -6,15 +6,16 @@ then
     docker-php-ext-enable --ini-name 100-newrelic.ini newrelic.so
     echo "[newrelic]" > "$PHP_INI_DIR/conf.d/100-newrelic.ini"
     echo "newrelic.license = \"${NEWRELIC_LICENSE}\"" >> "$PHP_INI_DIR/conf.d/100-newrelic.ini"
-    echo "newrelic.appname = \"${NEWRELIC_APPNAME:-CastroLive}\"" >> "$PHP_INI_DIR/conf.d/100-newrelic.ini"
+    echo "newrelic.appname = \"${NEWRELIC_APPNAME:-PHPapp}\"" >> "$PHP_INI_DIR/conf.d/100-newrelic.ini"
     newrelic-daemon --pidfile /var/run/newrelic-daemon.pid
 fi
 
 if [ -n "${XDEBUG}" ];
 then
     docker-php-ext-enable xdebug.so
-    echo "xdebug.remote_port = 9001" > /usr/local/etc/php/conf.d/xdebug.ini
-    echo "xdebug.remote_host = 127.0.0.1" >> /usr/local/etc/php/conf.d/xdebug.ini
+    echo "xdebug.remote_port = $XDEBUG_REMOTE_PORT" > /usr/local/etc/php/conf.d/xdebug.ini
+    echo "xdebug.remote_host = $XDEBUG_REMOTE_HOST" >> /usr/local/etc/php/conf.d/xdebug.ini
+    echo "xdebug.remote_autostart = $XDEBUG_REMOTE_AUTOSTART" >> /usr/local/etc/php/conf.d/xdebug.ini
     echo "xdebug.extended_info=1" >> /usr/local/etc/php/conf.d/xdebug.ini
     echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/xdebug.ini
 fi
@@ -40,11 +41,11 @@ then
     echo "memory_limit"
 fi
 
-if [ ! -z "${IONCUBE}" ];
-then
-    echo "zend_extension = /usr/local/php/ext/ioncube/ioncube_loader.so" > /usr/local/etc/php/conf.d/00-ioncube.ini
-    echo "ioncube.loader.key.ionparam = ${IONCUBE_KEY}" >> /usr/local/etc/php/conf.d/00-ioncube.ini
-fi   
+# if [ ! -z "${IONCUBE}" ];
+# then
+#     echo "zend_extension = /usr/local/php/ext/ioncube/ioncube_loader.so" > /usr/local/etc/php/conf.d/00-ioncube.ini
+#     echo "ioncube.loader.key.ionparam = ${IONCUBE_KEY}" >> /usr/local/etc/php/conf.d/00-ioncube.ini
+# fi   
 
 if [ ! -z "${COMPOSER_USERNAME}" ];
 then
