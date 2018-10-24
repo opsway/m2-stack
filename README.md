@@ -40,4 +40,5 @@ DOC_ROOT nginx document root param (default /app/current) <br>
 UPSTREAM upstream for php-fpm (default app)
 
 ## varnish 
+
 without any params
