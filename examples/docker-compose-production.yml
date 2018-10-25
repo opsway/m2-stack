@@ -1,0 +1,53 @@
+
+version: '2'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DEFAULT_HOST=www.example.com
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /var/www/docker-data/certs:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+  nginx-proxy-companion:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    networks:
+      - docker-default
+    volumes:
+      - /var/www/docker-data/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy    
+  varnish:
+    image: quay.io/opsway/m2-varnish
+    environment:
+      - VIRTUAL_HOST=www.example.com
+      - LETSENCRYPT_HOST=www.example.com
+      - LETSENCRYPT_EMAIL=your_email@example.com
+  app:
+    image: quay.io/opsway/m2-php
+    volumes:
+    - ../project/magento:/app/current
+    - ../project/nginx-log:/var/log/nginx/
+  web-worker:
+    image: quay.io/opsway/m2-nginx
+    volumes_from:
+      - app
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: magento-prod-db
+      MYSQL_PASSWORD: MYSQL_PASSWD
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWD
+      MYSQL_USER: magento-prod-db
+    volumes:
+    - ../project/mysql-data:/var/lib/mysql 
+  memcache:
+    image: memcached
+  redis:
+    image: redis
