@@ -6,7 +6,7 @@ It is universal docker stack for running magento 2. There are source files for p
 you can use next env var for php image
 **NEWRELIC_LICENSE** - license key for new relic agent <br>
 **NEWRELIC_APPNAME** - new relic application name (for displaing in new relic dashbourd ) <br>
-**XDEBUG** - enabla xdebug ( set "YES" )<br>
+**XDEBUG** - enable xdebug ( set "YES" )<br>
 **XDEBUG_REMOTE_PORT** - port which your IDE listen for xdebug (default 9001) <br> 
 **XDEBUG_REMOTE_HOST** - IDE IP. ( see XDEBUG section )<br>
 **XDEBUG_REMOTE_AUTOSTART** <br>
