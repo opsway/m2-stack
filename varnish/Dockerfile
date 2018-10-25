@@ -1,5 +1,8 @@
 FROM alpine:3.7
- 
+
+ENV STORAGE=malloc
+ENV STORAGE_SIZE=2G
+
 RUN apk update && \
     apk upgrade && \
     apk add varnish && \

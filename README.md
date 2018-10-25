@@ -40,5 +40,6 @@ DOC_ROOT nginx document root param (default /app/current) <br>
 UPSTREAM upstream for php-fpm (default app)
 
 ## varnish 
+STORAGE ( file | malloc ) default=malloc
+STORAGE_SIZE default=2G
 
-without any params
