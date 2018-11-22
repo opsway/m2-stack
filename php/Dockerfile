@@ -84,9 +84,9 @@ RUN apk upgrade --update \
     # Install N98-Magerun
     && curl -O https://files.magerun.net/n98-magerun2.phar \
         && mv ./n98-magerun2.phar /usr/local/bin/n98-magerun2 \
-        && chmod +x /usr/local/bin/n98-magerun2 \
-    # Install newrelic
-    mkdir -p /tmp/install \
+        && chmod +x /usr/local/bin/n98-magerun2 
+# Install newrelic        
+RUN mkdir -p /tmp/install \
     && cd /tmp/install \
     && curl -L -o newrelic.tar.gz "https://download.newrelic.com/php_agent/release/newrelic-$NEWRELIC_VERSION-linux-musl.tar.gz" \
     && tar -xzvf newrelic.tar.gz \
