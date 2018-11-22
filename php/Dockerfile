@@ -7,6 +7,7 @@ ENV XDEBUG_REMOTE_HOST=127.0.0.1
 ENV XDEBUG_REMOTE_AUTOSTART="off"
 
 ENV NEWRELIC_VERSION php5-8.3.0.226
+ENV NR_INSTALL_SILENT yes
 
 # Install libs
 RUN apk upgrade --update \
@@ -83,17 +84,15 @@ RUN apk upgrade --update \
     # Install N98-Magerun
     && curl -O https://files.magerun.net/n98-magerun2.phar \
         && mv ./n98-magerun2.phar /usr/local/bin/n98-magerun2 \
-        && chmod +x /usr/local/bin/n98-magerun2
-
-# newrelic install
-
-RUN  mkdir -p /tmp/install \
+        && chmod +x /usr/local/bin/n98-magerun2 \
+    # Install newrelic
+    mkdir -p /tmp/install \
     && cd /tmp/install \
     && curl -L -o newrelic.tar.gz "https://download.newrelic.com/php_agent/release/newrelic-$NEWRELIC_VERSION-linux-musl.tar.gz" \
     && tar -xzvf newrelic.tar.gz \
-    && cd $(php -r 'echo ini_get("extension_dir");') && cp "/tmp/install/newrelic-$NEWRELIC_VERSION-linux-musl/agent/x64/newrelic-20170718.so" newrelic.so \
-    && cp "/tmp/install/newrelic-$NEWRELIC_VERSION-linux-musl/daemon/newrelic-daemon.x64" /usr/bin/newrelic-daemon && chmod 0755 /usr/bin/newrelic-daemon \
-    && rm -Rf /tmp/install 
+    && cd "./newrelic-$NEWRELIC_VERSION-linux-musl" \
+    && ./newrelic-install install \
+    && rm -Rf /tmp/install     
 
 COPY www.conf /usr/local/etc/php-fpm.d/
 COPY php.ini /usr/local/etc/php/conf.d
