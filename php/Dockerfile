@@ -91,8 +91,8 @@ RUN mkdir -p /tmp/install \
     && curl -L -o newrelic.tar.gz "https://download.newrelic.com/php_agent/release/newrelic-$NEWRELIC_VERSION-linux-musl.tar.gz" \
     && tar -xzvf newrelic.tar.gz \
     && cd "./newrelic-$NEWRELIC_VERSION-linux-musl" \
-    && ./newrelic-install install \
-    && rm -Rf /tmp/install     
+    && ./newrelic-install install 
+#    && rm -Rf /tmp/install     
 
 COPY www.conf /usr/local/etc/php-fpm.d/
 COPY php.ini /usr/local/etc/php/conf.d
