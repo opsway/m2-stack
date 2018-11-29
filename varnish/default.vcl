@@ -5,6 +5,9 @@ import std;
 # The minimal Varnish version is 5.0
 # For SSL offloading, pass the following header in your proxy server or load balancer: 'X-Forwarded-Proto: https'
 
+# mobile fix
+include "devicedetect.vcl";
+
 backend default {
     .host = "web-worker";
     .port = "80";
@@ -24,6 +27,7 @@ acl purge {
 }
 
 sub vcl_recv {
+    call devicedetect;
     if (req.method == "PURGE") {
         if (client.ip !~ purge) {
             return (synth(405, "Method not allowed"));
@@ -132,6 +136,16 @@ sub vcl_hash {
 }
 
 sub vcl_backend_response {
+    # mobile fix
+    if (bereq.http.X-UA-Device) {
+    if (!beresp.http.Vary) { # no Vary at all
+            set beresp.http.Vary = "X-UA-Device";
+        } elsif (beresp.http.Vary !~ "X-UA-Device") { # add to existing Vary
+            set beresp.http.Vary = beresp.http.Vary + ", X-UA-Device";
+        }
+    }
+    # comment this out if you don't want the client to know your classification
+    set beresp.http.X-UA-Device = bereq.http.X-UA-Device;
 
     set beresp.grace = 3d;
 
@@ -195,6 +209,10 @@ sub vcl_deliver {
         set resp.http.Pragma = "no-cache";
         set resp.http.Expires = "-1";
         set resp.http.Cache-Control = "no-store, no-cache, must-revalidate, max-age=0";
+    }
+
+    if ((req.http.X-UA-Device) && (resp.http.Vary)) {
+        set resp.http.Vary = regsub(resp.http.Vary, "X-UA-Device", "User-Agent");
     }
 
     unset resp.http.X-Magento-Debug;

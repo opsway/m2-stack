@@ -8,6 +8,7 @@ RUN apk update && \
     apk add varnish && \
     mkdir -p /var/lib/varnish/
 ADD default.vcl /etc/varnish/
+ADD devicedetect.vcl /etc/varnish/
 # ADD secret /etc/varnish/
 
 ADD start.sh /start.sh
