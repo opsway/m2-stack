@@ -7,6 +7,11 @@ then
     exit 1
 fi
 
+if [ ! -d "$BACKUP_DIR/db" ];
+then    
+    mkdir -p $BACKUP_DIR/db
+fi    
+
 # DB_BACKUP_STORE_PATH=/backup/db/
 # DB_BACKUP_STORE_DAYS=30
 
