@@ -6,12 +6,14 @@ ENV BASE_PATH=/app/current
 ENV CREATE_DB=yes
 # ENV CREATE_MEDIA=no
 
+RUN  apk add --update rsync 
 
 ADD backup.sh /backup.sh
+ADD entrypoint.sh /entrypoint.sh
+RUN rm /var/spool/cron/crontabs/www-data
 
-RUN  apk add --update rsync \
-    && chmod +x /backup.sh
+RUN chmod +x /backup.sh /entrypoint.sh
 
-# RUN echo "0 3 * * * /backup.sh >> /backup.log" >> /var/spool/cron/crontabs/root
-RUN rm /var/spool/cron/crontabs/root
+CMD ["/usr/sbin/crond","-f","-L","/dev/stdout"]
+ENTRYPOINT ["/entrypoint.sh"]
 
