@@ -1,5 +1,5 @@
 #!/bin/bash
-BACKUP_DIR=/backup
+BACKUP_DIR=/backups
 
 if [ ! -d "$BACKUP_DIR" ]; 
 then
