@@ -40,7 +40,7 @@ fi
 if [ ! -z "${DEV_ENV}" ];
 then
     echo "opcache.enable = off" > /usr/local/etc/php/conf.d/dev-env.ini
-    echo "memory_limit"
+    echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/dev-env.ini
 fi
 
 # if [ ! -z "${IONCUBE}" ];
