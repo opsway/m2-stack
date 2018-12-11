@@ -33,6 +33,7 @@ RUN apk upgrade --update \
         libxslt-dev \
         libxslt \
         openssh \
+        tini \
         g++ \
         make \
         # Prepare PHP extensions and configs 
