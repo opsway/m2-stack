@@ -55,6 +55,6 @@ then
     echo '{ "http-basic": { "repo.magento.com": { "username": "'$COMPOSER_USERNAME'", "password": "'$COMPOSER_PASSWORD'" } } }' > /home/www-data/.composer/auth.json
 fi
 
-tini
+tini "$@"
 
-exec "$@"
+# exec 
