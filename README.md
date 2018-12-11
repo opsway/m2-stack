@@ -34,6 +34,10 @@ you can use SSH for connecting to container:
 
 ssh -p 2222 www-data@SERVER_IP 
 
+## cron
+for running crond I have to just run php container with next params <br>
+ - entrypoint /sbin/tini
+ - command /entrypoint.sh /usr/sbin/crond -f -L /dev/stdout
 
 ## nginx
 **DOC_ROOT** nginx document root param (default /app/current) <br>
@@ -42,4 +46,5 @@ ssh -p 2222 www-data@SERVER_IP
 ## varnish 
 **STORAGE** ( file | malloc ) default=malloc<br>
 **STORAGE_SIZE** default=2G
+**EXTRA_PARAMS** extra varnish params. E.g. "-p default_ttl=86400"
 
