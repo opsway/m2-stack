@@ -11,9 +11,13 @@ RUN apk update --no-cache \
 RUN curl -L https://deployer.org/releases/v$DEPLOYER_VERSION/deployer.phar > /usr/local/bin/deployer \
     && chmod +x /usr/local/bin/deployer
 
+ADD entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
 VOLUME ["/project", "$HOME/.ssh"]
 WORKDIR /project
 
-ENTRYPOINT ["deployer"]
-CMD ["--version"]
+ENTRYPOINT ["/entrypoint.sh"]
+
 
