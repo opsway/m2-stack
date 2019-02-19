@@ -17,6 +17,7 @@ RUN apk upgrade --update \
         git \
         zip \
         unzip \
+        patch \
         mysql-client \
         icu-dev \
         libmcrypt-dev \
