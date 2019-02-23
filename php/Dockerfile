@@ -6,7 +6,7 @@ ENV XDEBUG_REMOTE_PORT=9001
 ENV XDEBUG_REMOTE_HOST=127.0.0.1
 ENV XDEBUG_REMOTE_AUTOSTART="off"
 
-ENV NEWRELIC_VERSION php5-8.4.0.231
+ENV NEWRELIC_VERSION php5-8.5.0.235
 ENV NR_INSTALL_SILENT yes
 
 # Install libs
@@ -17,6 +17,7 @@ RUN apk upgrade --update \
         git \
         zip \
         unzip \
+        patch \
         mysql-client \
         icu-dev \
         libmcrypt-dev \
@@ -85,7 +86,8 @@ RUN apk upgrade --update \
     # Install N98-Magerun
     && curl -O https://files.magerun.net/n98-magerun2.phar \
         && mv ./n98-magerun2.phar /usr/local/bin/n98-magerun2 \
-        && chmod +x /usr/local/bin/n98-magerun2 
+        && chmod +x /usr/local/bin/n98-magerun2
+
 # Install newrelic        
 RUN mkdir -p /tmp/install \
     && cd /tmp/install \
