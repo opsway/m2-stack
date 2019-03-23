@@ -6,6 +6,9 @@ ENV XDEBUG_REMOTE_PORT=9001
 ENV XDEBUG_REMOTE_HOST=127.0.0.1
 ENV XDEBUG_REMOTE_AUTOSTART="off"
 
+ENV NEWRELIC_VERSION php5-8.6.0.238
+ENV NR_INSTALL_SILENT yes
+
 # Install libs
 RUN apk upgrade --update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
@@ -83,6 +86,15 @@ RUN  wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86
     && curl -O https://files.magerun.net/n98-magerun.phar \
         && mv ./n98-magerun.phar /usr/local/bin/n98-magerun \
         && chmod +x /usr/local/bin/n98-magerun
+
+# Install newrelic        
+RUN mkdir -p /tmp/install \
+    && cd /tmp/install \
+    && curl -L -o newrelic.tar.gz "https://download.newrelic.com/php_agent/release/newrelic-$NEWRELIC_VERSION-linux-musl.tar.gz" \
+    && tar -xzvf newrelic.tar.gz \
+    && cd "./newrelic-$NEWRELIC_VERSION-linux-musl" \
+    && ./newrelic-install install 
+#    && rm -Rf /tmp/install     
 
 COPY www.conf /usr/local/etc/php-fpm.d/
 COPY php.ini /usr/local/etc/php/conf.d
