@@ -29,6 +29,7 @@ ssh -R localhost:9001:localhost:9001 www-data@%REMOTE_SERVER% -p %PORT%
 ### SSH
 you can use SSH for connecting to container: 
 - SSH_SERVER="yes" <br>
+- PROMT_MESSAGE="project-name" - promt message via ssh session.
 - add volume with files contains ssh open keys authorized_keys:/home/www-data/.ssh/authorized_keys<br>
 - set port mapping - 2222:22<br>
 
