@@ -34,7 +34,7 @@ then
     echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/www-data
     if [ -n "$PROMT_MESSAGE" ];
     then
-        echo 'export PS1="$PROMT_MESSAGE$ "' > /home/www-data/.bash_profile
+        echo 'export PS1="'$PROMT_MESSAGE':\w\$ "' > /home/www-data/.bash_profile
     fi    
 
     /usr/sbin/sshd || true
