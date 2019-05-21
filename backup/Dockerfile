@@ -3,9 +3,9 @@ FROM quay.io/opsway/m2-php
 ENV CRON_TIME="0 3 * * *"
 ENV DB_BACKUP_STORE_DAYS=7
 ENV BASE_PATH=/app/current
-ENV CREATE_DB=yes
-ENV INIT_DB="yes"
-# ENV CREATE_MEDIA=no
+ENV SAVE_DB=yes
+ENV SAVE_MEDIA=yes
+ENV SAVE_ON_START=yes
 
 RUN  apk add --update rsync 
 
