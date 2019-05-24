@@ -42,7 +42,7 @@ if [ -n "${SAVE_MEDIA}" ]; then
     echo "creating tar ... "
     cd ${BACKUP_DIR}/media/ \
     && tar -cvzf $(date +%Y%m%d).tar ./latest/  \
-    && find ./*.tar -mtime +${BACKUP_DIR}/media/ -type f -delete
+    && find ./*.tar -mtime +${MEDIA_BACKUP_STORE_DAYS} -type f -delete
 fi
 
 
