@@ -48,7 +48,3 @@ for running crond I have to just run php container with next params <br>
 **STORAGE** ( file | malloc ) default=malloc<br>
 **STORAGE_SIZE** default=2G
 **EXTRA_PARAMS** extra varnish params. E.g. "-p default_ttl=86400"
-
-
-
-
