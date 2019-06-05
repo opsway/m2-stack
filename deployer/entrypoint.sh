@@ -7,5 +7,7 @@ for possiblekey in ${HOME}/.ssh/id_*; do
         ssh-add "$possiblekey"
     fi
 done
+mkdir -p /root/.ssh/
+echo "StrictHostKeyChecking=no" > /root/.ssh/config
 
 exec "$@"
